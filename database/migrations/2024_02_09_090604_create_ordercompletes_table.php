@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('ordercompletes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('order_id')->constrained('orders');
+            $table->string('file_complete');
+            $table->longText('note_translator');
+            $table->string('rating');
             $table->timestamps();
         });
     }

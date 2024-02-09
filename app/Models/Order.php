@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+
+    public function orderpending(){
+        return $this->hasOne(Orderpending::class);
+
+    }
+    
 }

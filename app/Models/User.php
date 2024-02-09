@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function orderpendings(){
+        return $this->belongsTo(Orderpending::class);
+    }
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
 }

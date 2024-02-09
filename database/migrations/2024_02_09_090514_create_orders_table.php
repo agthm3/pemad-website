@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->longText('client_request');
+            $table->enum('status', ['progress', 'reject', 'complete', 'payment'])->default('payment');
+            $table->string('client_file');
             $table->timestamps();
         });
     }

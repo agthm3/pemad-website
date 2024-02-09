@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -12,7 +14,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('dashboard.service.index');
+        $allService = Service::all();
+        return view('dashboard.service.index', compact('allService'));
     }
 
     /**
@@ -29,7 +32,28 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image'=> 'required|image',
+            'title'=>'required|max:255',
+            'description'=>'required|max:1000',
+            'price'=>'required|integer'
+        ]);
+
+        $file = $request->file('image');
+        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+
+        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+
+        Service::create([
+            'image'=>$path,
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'price'=>$request->price
+        ]);
+
+    
+        return redirect()->back()->with('success', 'Service baru berhasil disimpan.');
+
     }
 
     /**

@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('role', ['user', 'client'])->default('client');
+            $table->string('company_name');
+            $table->string('company_address');
+            $table->string('bank_name');
+            $table->string('bank_number');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

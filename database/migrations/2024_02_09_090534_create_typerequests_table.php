@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('typerequests', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('service_id')->constrained('services');
             $table->timestamps();
         });
     }
