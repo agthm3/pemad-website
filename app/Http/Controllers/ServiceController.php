@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Typerequest;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -37,7 +38,9 @@ class ServiceController extends Controller
             'image'=> 'required|image',
             'title'=>'required|max:255',
             'description'=>'required|max:1000',
-            'price'=>'required|integer'
+            'price'=>'required|integer',
+            'typeRequest' => 'required|array', // Validasi inputan typeRequest sebagai array
+            'typeRequest.*' => 'required|string', // Validasi setiap item dalam array typeRequest
         ]);
 
         $file = $request->file('image');
@@ -45,12 +48,20 @@ class ServiceController extends Controller
 
         Storage::disk('local')->put('public/'. $path, file_get_contents($file));
 
-        Service::create([
+        $service = Service::create([
             'image'=>$path,
             'title'=>$request->title,
             'description'=>$request->description,
             'price'=>$request->price
         ]);
+
+        // Menyimpan setiap TypeRequest
+        foreach ($request->typeRequest as $typeReq) {
+            $typerequest = new Typerequest();
+            $typerequest->service_id = $service->id;
+            // Anda bisa menambahkan atribut lain untuk Typerequest sesuai dengan struktur tabel Anda
+            $typerequest->save();
+        }
 
     
         return redirect()->back()->with('success', 'Service baru berhasil disimpan.');

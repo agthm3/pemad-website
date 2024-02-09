@@ -10,7 +10,7 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body image-fluid">
                             <div class="row">
                                 <div class="col-lg-3">
                                     <img src="{{ url('storage/' . $service->image) }}" class="img-fluid" alt="" />
@@ -19,38 +19,40 @@
                                     <div class="row">
                                         <h3 class="mb-2">{{ $service->title }}</h3>
                                     </div>
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>Description</td>
-                                                <td>
-                                                    {{ $service->description }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Price</td>
-                                                <td>Rp{{ $service->price }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Request Available</td>
-                                                <td>
-                                                    <select name="" class="form-control" id="">
-                                                        <option value="">
-                                                            Translation/Localization
-                                                        </option>
-                                                        <option value="">Subtitling</option>
-                                                        <option value="">Transcription</option>
-                                                        <option value="">Voice Over</option>
-                                                        <option value="">Sworn Translation</option>
-                                                        <option value="">Copywriting</option>
-                                                        <option value="">Editing/Proofreading</option>
-                                                        <option value="">Intepretation</option>
-                                                        <option value="">Desktop Publishing</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive-md">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Description</td>
+                                                    <td>
+                                                        {{ $service->description }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Price</td>
+                                                    <td>Rp {{ number_format($service->price) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Request Available</td>
+                                                    <td>
+                                                        <select name="" class="form-control" id="">
+                                                            <option value="">
+                                                                Translation/Localization
+                                                            </option>
+                                                            <option value="">Subtitling</option>
+                                                            <option value="">Transcription</option>
+                                                            <option value="">Voice Over</option>
+                                                            <option value="">Sworn Translation</option>
+                                                            <option value="">Copywriting</option>
+                                                            <option value="">Editing/Proofreading</option>
+                                                            <option value="">Intepretation</option>
+                                                            <option value="">Desktop Publishing</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

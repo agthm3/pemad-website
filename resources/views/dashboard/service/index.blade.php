@@ -7,7 +7,7 @@
             <a href="{{ route('service.add') }}" class="btn-link">Add New Service</a>
         </div>
         @if (Session::has('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-danger">
                 {{ Session::get('success') }}
             </div>
         @endif
@@ -38,11 +38,11 @@
                     <div class="product-detail pt-4">
                         <div>
                             <p class="label-detail mb-1">Price:</p>
-                            <p class="price-detail">Rp {{ $item->price }}</p>
+                            <p class="price-detail">Rp {{ number_format($item->price) }}</p>
                         </div>
-                        <a class="buy-product button btn-rounded active" onclick="handleBuy(this)"
-                            href="{{ route('service.show', $item->id) }}" class="text-decoration-none">
-                            Manage
+                        <a class="buy-product button btn-rounded active text-decoration-none" onclick="handleBuy(this)"
+                            href="{{ route('service.show', $item->id) }}">
+                            <strong>Manage</strong>
                         </a>
                     </div>
                 </div>
