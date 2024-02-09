@@ -30,7 +30,7 @@
                             <p class="price-detail">Rp {{ $item->price }}</p>
                         </div>
                         <a class="buy-product button btn-rounded active" onclick="handleBuy(this)"
-                            href="{{ route('service.show') }}" class="text-decoration-none">
+                            href="{{ route('service.show', $item->id) }}" class="text-decoration-none">
                             Manage
                         </a>
                     </div>

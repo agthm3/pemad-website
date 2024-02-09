@@ -61,7 +61,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-       return view('dashboard.service.show');
+    
+       return view('dashboard.service.show', compact('service'));
     }
 
     /**

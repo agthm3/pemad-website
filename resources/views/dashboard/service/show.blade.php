@@ -13,26 +13,23 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <img src="assets/images/englishindonesia.jpg" class="img-fluid" alt="" />
+                                    <img src="{{ url('storage/' . $service->image) }}" class="img-fluid" alt="" />
                                 </div>
                                 <div class="col-lg-9">
                                     <div class="row">
-                                        <h3 class="mb-2">English - Indonesian</h3>
+                                        <h3 class="mb-2">{{ $service->title }}</h3>
                                     </div>
                                     <table class="table">
                                         <tbody>
                                             <tr>
                                                 <td>Description</td>
                                                 <td>
-                                                    We will carry out the translation process
-                                                    according to the request you have made. The
-                                                    translation process we undertake adheres to the
-                                                    standards established by international standards.
+                                                    {{ $service->description }}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Price</td>
-                                                <td>Rp220.000</td>
+                                                <td>Rp{{ $service->price }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Request Available</td>

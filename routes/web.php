@@ -25,7 +25,7 @@ Route::get('/manage-order', [DashboardController::class, 'manage_order'])->name(
 Route::get('/service-list', [ServiceController::class, 'index'])->name('dashboard.servicelist');
 Route::get('/add-service', [ServiceController::class, 'create'])->name('service.add');
 Route::post('/add-service', [ServiceController::class, 'store'])->name('service.store');
-Route::get('/detail-service', [ServiceController::class, 'show'])->name('service.show');
+Route::get('/detail-service/{service}', [ServiceController::class, 'show'])->name('service.show');
 Route::get('/service-edit', [ServiceController::class, 'edit'])->name('service.edit');
 
 
