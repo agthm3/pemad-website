@@ -6,8 +6,19 @@
             <h4 class="title-section-content">Service List</h4>
             <a href="{{ route('service.add') }}" class="btn-link">Add New Service</a>
         </div>
+        @if (Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
 
+        @if (Session::has('error'))
+            <div class="alert alert-danger">
+                {{ Session::get('error') }}ok
+            </div>
+        @endif
         <div class="d-flex gap-4 flex-wrap">
+
             @foreach ($allService as $item)
                 <div class="product-card">
                     <img src="{{ url('storage/' . $item->image) }}" alt="Nike Red" width="260" height="180" />

@@ -62,9 +62,13 @@
                                         </a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <button class="col-lg-12 btn btn-danger float-rigth mt-2 mb-2">
-                                            Hapus
-                                        </button>
+                                        <form action="{{ route('service.destroy', $service->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="col-lg-12 btn btn-danger float-rigth mt-2 mb-2">
+                                                Hapus
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

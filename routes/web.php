@@ -27,6 +27,7 @@ Route::get('/add-service', [ServiceController::class, 'create'])->name('service.
 Route::post('/add-service', [ServiceController::class, 'store'])->name('service.store');
 Route::get('/detail-service/{service}', [ServiceController::class, 'show'])->name('service.show');
 Route::get('/service-edit', [ServiceController::class, 'edit'])->name('service.edit');
+Route::delete('/service-edit/{service}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
 
 Route::get('/your-order', [OrderController::class,'index'])->name('yourorder.index');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
@@ -86,6 +87,9 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $service->delete();
+        $title = $service->title;
+
+        return Redirect()->route('dashboard.servicelist')->with('success', $title . ' berhasil dihapus.');
     }
 }
