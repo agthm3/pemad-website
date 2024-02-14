@@ -15,7 +15,7 @@ class Service extends Model
         'price'
     ];
 
-    public function typerequest(){
-        return $this->hasMany(Typerequest::class);
+    public function typerequests(){
+        return $this->hasMany(Typerequest::class, 'service_id', 'id');
     }
 }

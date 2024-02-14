@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard.order.index');
 Route::get('/manage-order', [DashboardController::class, 'manage_order'])->name('dashboard.manageorder');
 
 Route::get('/service-list', [ServiceController::class, 'index'])->name('dashboard.servicelist');
@@ -28,6 +28,7 @@ Route::post('/add-service', [ServiceController::class, 'store'])->name('service.
 Route::get('/detail-service/{service}', [ServiceController::class, 'show'])->name('service.show');
 Route::get('/service-edit', [ServiceController::class, 'edit'])->name('service.edit');
 Route::delete('/service-edit/{service}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
 
 
 Route::get('/your-order', [OrderController::class,'index'])->name('yourorder.index');

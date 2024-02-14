@@ -101,8 +101,7 @@
                                                 <a href="" class="btn btn-primary">Receipt</a>
                                             </td>
                                             <td>
-                                                <a style="background-color: #2579d1" class="btn text-white"
-                                                    href="manageorder-show.html">
+                                                <a style="background-color: #2579d1" class="btn text-white" href="">
                                                     Detail
                                                 </a>
                                             </td>

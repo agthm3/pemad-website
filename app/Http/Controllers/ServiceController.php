@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\Typerequest;
+use App\Repositories\Interfaces\ServiceInterface;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\ServiceRepository;
 
 class ServiceController extends Controller
 {
+    private $serviceRepository;
+    public function __construct(ServiceInterface $serviceRepository)
+    {
+        $this->serviceRepository = $serviceRepository;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $allService = Service::all();
+        $allService = $this->serviceRepository->getService();
         return view('dashboard.service.index', compact('allService'));
     }
 
@@ -32,41 +39,33 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+
     public function store(Request $request)
     {
         $request->validate([
-            'image'=> 'required|image',
-            'title'=>'required|max:255',
-            'description'=>'required|max:1000',
-            'price'=>'required|integer',
-            'typeRequest' => 'required|array', // Validasi inputan typeRequest sebagai array
-            'typeRequest.*' => 'required|string', // Validasi setiap item dalam array typeRequest
+            'image' => 'required|image',
+            'title' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'price' => 'required|integer',
+            'typeRequest' => 'required|array',
+            'typeRequest.*' => 'required|string',
         ]);
 
         $file = $request->file('image');
-        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+        $data = [
+            'image' => $file,
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'name' => $request->name, // Pastikan ini sesuai dengan ekspektasi data yang dikirim
+        ];
 
-        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+        $this->serviceRepository->storeService($data, $request->typeRequest);
 
-        $service = Service::create([
-            'image'=>$path,
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'price'=>$request->price
-        ]);
-
-        // Menyimpan setiap TypeRequest
-        foreach ($request->typeRequest as $typeReq) {
-            $typerequest = new Typerequest();
-            $typerequest->service_id = $service->id;
-            // Anda bisa menambahkan atribut lain untuk Typerequest sesuai dengan struktur tabel Anda
-            $typerequest->save();
-        }
-
-    
         return redirect()->back()->with('success', 'Service baru berhasil disimpan.');
-
     }
+
 
     /**
      * Display the specified resource.
@@ -96,11 +95,16 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy($id)
     {
-        $service->delete();
-        $title = $service->title;
+        $title = $this->serviceRepository->deleteService($id);
 
-        return Redirect()->route('dashboard.servicelist')->with('success', $title . ' berhasil dihapus.');
+        if ($title) {
+            
+            return Redirect()->route('dashboard.servicelist')->with('success', $title . ' berhasil dihapus.');
+        } else {
+            return Redirect()->route('dashboard.servicelist')->with('error', 'Service gagal dihapus.');
+        }
     }
+
 }

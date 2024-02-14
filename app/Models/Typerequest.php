@@ -9,6 +9,11 @@ class Typerequest extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'service_id'
+    ];
+
     public function service(){
         return $this->belongsTo(Service::class);
     }
