@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderpendingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Models\ordercomplete;
 use App\Models\Orderpending;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/download-client-file/{order}', [OrderController::class, 'downloadClientFile'])->name('download.client-file');
 
     Route::post('/order-complete', [OrdercompleteController::class, 'store'])->name('order.complete.requestor');
+    Route::get('/show-order/client/{ordercomplete}', [OrdercompleteController::class, 'show'])->name('order.client.show');
+    Route::get('/download-file/{id}', [OrdercompleteController::class, 'downloadFile'])->name('download-file');
+
+
+
 
 });
 

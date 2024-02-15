@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\ordercomplete;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Typerequest;
@@ -16,7 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('dashboard.order.index');
+        $allClientOrder = ordercomplete::all();
+        return view('dashboard.order.client-order-index', compact('allClientOrder'));
     }
 
     public function downloadReceipt(Order $order)

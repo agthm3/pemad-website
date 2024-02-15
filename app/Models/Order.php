@@ -30,6 +30,6 @@ class Order extends Model
 
     public function ordercomplete()
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasOne(Order::class);
     }
 }

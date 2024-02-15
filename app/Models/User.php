@@ -51,7 +51,9 @@ class User extends Authenticatable
     ];
 
   
-
+    public function ordercomplete(){
+        return $this->hasOne(ordercomplete::class);
+    }
 
     public function order(){
         return $this->hasOne(Order::class);

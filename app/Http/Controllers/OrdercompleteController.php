@@ -63,8 +63,26 @@ class OrdercompleteController extends Controller
      */
     public function show(ordercomplete $ordercomplete)
     {
-        //
+        return view('dashboard.order.client-order-show', compact('ordercomplete'));
     }
+
+    public function downloadFile($id)
+    {
+        // Assuming $id is the ID of the Ordercomplete entry
+        $ordercomplete = Ordercomplete::findOrFail($id); // Find the model instance by ID
+
+        // Now $ordercomplete is an object, and you can access its properties
+        $filePath = 'public/' . $ordercomplete->file_complete;
+
+        if (!Storage::exists($filePath)) {
+            abort(404); // File not found
+        }
+
+        $absolutePath = Storage::path($filePath);
+        return response()->download($absolutePath);
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

@@ -16,6 +16,10 @@ class ordercomplete extends Model
         'note_translator'
     ];
     public function order(){
-        return $this->hasOne(Order::class);
+        return $this->belongsTo(Order::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
