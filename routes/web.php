@@ -57,8 +57,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/order-complete', [OrdercompleteController::class, 'store'])->name('order.complete.requestor');
     Route::get('/show-order/client/{ordercomplete}', [OrdercompleteController::class, 'show'])->name('order.client.show');
-    Route::get('/download-file/{id}', [OrdercompleteController::class, 'downloadFile'])->name('download-file');
+    Route::get('/download-file/{id}', [OrdercompleteController::class, 'downloadFile'])->name('download-file'); 
+    Route::post('/order-client/complete/{ordercomplete}', [OrdercompleteController::class, 'update'])->name('order.client.complete');
 
+    Route::get('/history', [OrdercompleteController::class, 'getAllHistory'])->name('history.index');
+    Route::get('/show-history/client/{ordercomplete}', [OrdercompleteController::class, 'getDetailHistory'])->name('history.client.show');
 
 
 

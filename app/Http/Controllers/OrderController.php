@@ -17,7 +17,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $allClientOrder = ordercomplete::all();
+        $allClientOrder = Order::whereHas('orderComplete', function ($query) {
+            $query->where('status', '!=', 'complete');
+        })->get();
         return view('dashboard.order.client-order-index', compact('allClientOrder'));
     }
 

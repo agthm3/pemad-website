@@ -26,6 +26,13 @@ class OrdercompleteController extends Controller
         //
     }
 
+    public function getAllHistory()
+    {
+        $historyOrder = Order::where('status', 'complete')->get();
+
+        return view('dashboard.history.index', compact('historyOrder'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -65,6 +72,10 @@ class OrdercompleteController extends Controller
     {
         return view('dashboard.order.client-order-show', compact('ordercomplete'));
     }
+    public function getDetailHistory(ordercomplete $ordercomplete)
+    {
+        return view('dashboard.history.show', compact('ordercomplete'));
+    }
 
     public function downloadFile($id)
     {
@@ -95,10 +106,27 @@ class OrdercompleteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ordercomplete $ordercomplete)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'order_id' => 'required|integer|exists:orders,id'
+        ]);
+
+        $orderComplete = OrderComplete::findOrFail($id);
+        $order = Order::findOrFail($request->order_id);
+
+        // Update status order
+        $order->status = 'complete';
+        $order->save();
+
+        // Update rating pada OrderComplete
+        $orderComplete->rating = $request->rating;
+        $orderComplete->save();
+
+        return redirect()->route('dashboard.index')->with('success', 'Order completed successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -30,6 +30,6 @@ class Order extends Model
 
     public function ordercomplete()
     {
-        return $this->hasOne(Order::class);
+        return $this->hasOne(ordercomplete::class);
     }
 }
