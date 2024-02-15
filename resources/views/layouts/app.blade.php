@@ -139,9 +139,12 @@
 
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Logout</a>
+                            <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
-
+                        <a href="https://github.com/agthm3/pemad-website.git" class="btn btn-success mt-2">Link
+                            Repository
+                            Materi
+                            Tes Bidang Kerja </a>
                     </div>
                 </div>
                 <div class="search-wrapper">
