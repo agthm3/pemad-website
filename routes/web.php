@@ -49,8 +49,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/service-show/home/{service}', [OrderController::class, 'show'])->name('order.home.show');
     Route::post('/order-pending', [OrderController::class, 'store'])->name('order.store');
     Route::get('/your-order', [OrderController::class,'index'])->name('yourorder.index');
-    Route::get('/show-order', [OrderController::class, 'show'])->name('order.show');
+    Route::get('/show-order/{order}', [OrderController::class, 'manageShow'])->name('order.show');
     Route::get('/download-receipt/{order}', [OrderController::class, 'downloadReceipt'])->name('download.receipt');
+    Route::get('/download-client-file/{order}', [OrderController::class, 'downloadClientFile'])->name('download.client-file');
+
 
 });
 

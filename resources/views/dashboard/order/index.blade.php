@@ -42,7 +42,7 @@
                                                 </td>
                                                 <td>
                                                     <a style="background-color: #2579d1" class="btn text-white"
-                                                        href="{{ route('order.show') }}">
+                                                        href="{{ route('order.show', $item->id) }}">
                                                         Detail
                                                     </a>
                                                 </td>

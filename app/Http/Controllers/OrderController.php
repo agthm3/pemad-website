@@ -88,6 +88,25 @@ class OrderController extends Controller
         return view('dashboard.order.show', compact('service', 'typeRequests'));
     }
 
+    public function manageShow(Order $order)
+    {
+        return view('dashboard.order.order-detail', compact('order'));
+    }
+
+    public function downloadClientFile(Order $order)
+    {
+        // Misalkan `client_file` hanya menyimpan nama file, seperti "documents/myfile.pdf"
+        $filePath = $order->client_file; // Tidak perlu menambahkan 'public/' jika menggunakan disk 'public'
+
+        // Gunakan disk yang sesuai saat memeriksa keberadaan file dan saat mengunduh
+        if (!Storage::disk('public')->exists($filePath)) {
+            abort(404, 'File not found.');
+        }
+
+        // Langsung mengunduh dari disk 'public'
+        return Storage::disk('public')->download($filePath);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
