@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrdercompleteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderpendingController;
 use App\Http\Controllers\ProfileController;
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/download-receipt/{order}', [OrderController::class, 'downloadReceipt'])->name('download.receipt');
     Route::get('/download-client-file/{order}', [OrderController::class, 'downloadClientFile'])->name('download.client-file');
 
+    Route::post('/order-complete', [OrdercompleteController::class, 'store'])->name('order.complete.requestor');
 
 });
 

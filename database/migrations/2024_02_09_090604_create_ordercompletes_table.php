@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained('orders');
             $table->string('file_complete');
             $table->longText('note_translator');
-            $table->string('rating');
+            $table->string('rating')->default(null);
             $table->timestamps();
         });
     }

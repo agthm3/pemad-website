@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\ordercomplete;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class OrdercompleteController extends Controller
 {
@@ -28,7 +31,31 @@ class OrdercompleteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'note_translator' => 'required',
+            'file_complete' => 'required',
+            'status' => 'required'
+        ]);
+        
+
+        // Menangani receipt
+        $translatorFile = $request->file('file_complete');
+        $FilaPath = 'file_complete/' . time() . '_' . $translatorFile->getClientOriginalName();
+        Storage::disk('local')->put('public/'. $FilaPath, file_get_contents($translatorFile));
+        $user_id = Auth()->user()->id;
+        ordercomplete::create([
+            'note_translator' => $request->note_translator,
+            'file_complete' => $FilaPath,
+            'order_id' => $request->order_id,
+            'user_id' => $user_id,
+            'rating' => 0
+        ]);
+
+        $order = Order::find($request->order_id);
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect(route('dashboard.index'));
     }
 
     /**
