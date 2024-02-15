@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/order-pending', [OrderController::class, 'store'])->name('order.store');
     Route::get('/your-order', [OrderController::class,'index'])->name('yourorder.index');
     Route::get('/show-order', [OrderController::class, 'show'])->name('order.show');
+    Route::get('/download-receipt/{order}', [OrderController::class, 'downloadReceipt'])->name('download.receipt');
+
 });
 
 require __DIR__.'/auth.php';

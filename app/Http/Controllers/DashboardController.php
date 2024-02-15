@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
+use App\Models\Order;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class DashboardController extends Controller
     }
     
     public function manage_order(){
-        return view('dashboard.order.index');
+        $allOrder = Order::all();
+        return view('dashboard.order.index',compact('allOrder'));
     }
 
    

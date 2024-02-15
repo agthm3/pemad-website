@@ -19,6 +19,19 @@ class OrderController extends Controller
         return view('dashboard.order.index');
     }
 
+    public function downloadReceipt(Order $order)
+    {
+        // Pastikan Anda memiliki kolom/path untuk menyimpan receipt di model Order Anda
+        $filePath = 'public/' . $order->receipt;
+
+        if (!Storage::exists($filePath)) {
+            abort(404); // File tidak ditemukan
+        }
+
+        $absolutePath = Storage::path($filePath);
+        return response()->download($absolutePath);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
