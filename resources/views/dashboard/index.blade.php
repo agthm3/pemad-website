@@ -4,7 +4,7 @@
     <section class="d-flex flex-column gap-4">
         <div class="d-flex justify-content-between align-items-center gap-3">
             <h4 class="title-section-content">Our Services</h4>
-            <a href="#" class="btn-link">View All Shoes</a>
+
         </div>
 
         <div class="d-flex gap-4 flex-wrap">
@@ -29,8 +29,8 @@
                             <p class="label-detail mb-1">Price:</p>
                             <p class="price-detail">Rp {{ number_format($item->price) }}</p>
                         </div>
-                        <a href="" class="buy-product button btn-rounded active text-decoration-none"
-                            onclick="handleBuy(this)">
+                        <a href="{{ route('order.home.show', $item->id) }}"
+                            class="buy-product button btn-rounded active text-decoration-none" onclick="handleBuy(this)">
                             Order
                         </a>
                     </div>

@@ -9,10 +9,18 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'service_id',
+        'client_request',
+        'type_request',
+        'status',
+        'client_file'
+    ];
 
-    public function orderpending(){
-        return $this->hasOne(Orderpending::class);
 
+    public function service(){
+        return $this->belongsTo(Service::class);
     }
-    
+
 }

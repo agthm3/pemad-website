@@ -18,4 +18,9 @@ class Service extends Model
     public function typerequests(){
         return $this->hasMany(Typerequest::class, 'service_id', 'id');
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
 }

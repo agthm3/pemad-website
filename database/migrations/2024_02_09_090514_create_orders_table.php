@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('service_id')->constrained('services');
             $table->longText('client_request');
+            $table->string('type_request');
+            $table->string('receipt');
             $table->enum('status', ['progress', 'reject', 'complete', 'payment'])->default('payment');
             $table->string('client_file');
             $table->timestamps();

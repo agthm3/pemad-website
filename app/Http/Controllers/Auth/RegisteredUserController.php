@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('components.register');
     }
 
     /**
@@ -34,12 +34,20 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'company_name' => 'required|string|max:500',
+            'company_address' => 'required|string|max:1000',
+            'bank_name'=> 'required|string',
+            'bank_number'=> 'required|integer'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'company_name' => $request->company_name,
+            'company_address' => $request->company_address,
+            'bank_name' => $request->bank_name,
+            'bank_number' =>$request->bank_number
         ]);
 
         event(new Registered($user));

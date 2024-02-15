@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Orderpending;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OrderpendingController extends Controller
 {
@@ -28,15 +29,32 @@ class OrderpendingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id'=> 'required',
+            'order_id'=> 'required',
+            'receipt'=> 'required|image'
+        ]);
+
+        $file = $request->file('client_file');
+        $path = time() . '_' . $request->type_request . '.' . $file->getClientOriginalExtension();
+
+        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+
+        $user_id = 1;
+        Orderpending::create([
+            'receipt' => $path,
+            'user_id' => $user_id,
+            'order_id' => $request->order_id
+        ]);
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Orderpending $orderpending)
+    public function show(Order $order)
     {
-        //
+        return view('dashboard.order.pending');
     }
 
     /**
