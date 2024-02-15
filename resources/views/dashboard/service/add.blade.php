@@ -4,7 +4,7 @@
     <section class="d-flex flex-column gap-4">
         <div class="d-flex justify-content-between align-items-center gap-3">
             <h4 class="title-section-content">Add New Service</h4>
-            <a href="servicelist.html" class="btn-link">Back</a>
+            <a href="{{ route('dashboard.manageorder') }}" class="btn-link">Back</a>
         </div>
 
         <div class="d-flex gap-4 flex-wrap">

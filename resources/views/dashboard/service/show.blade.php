@@ -3,7 +3,7 @@
     <section class="d-flex flex-column gap-4">
         <div class="d-flex justify-content-between align-items-center gap-3">
             <h4 class="title-section-content">Service List</h4>
-            <a href="#" class="btn-link">View All Shoes</a>
+
         </div>
 
         <div class="d-flex gap-4 flex-wrap">
