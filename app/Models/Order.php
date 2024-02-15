@@ -15,7 +15,8 @@ class Order extends Model
         'client_request',
         'type_request',
         'status',
-        'client_file'
+        'client_file',
+        'receipt'
     ];
 
 

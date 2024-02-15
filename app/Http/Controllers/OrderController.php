@@ -37,31 +37,32 @@ class OrderController extends Controller
             'client_file' => 'required',
             'client_request' => 'required|max:1000',
             'service_id' => 'required|exists:services,id',
+            'receipt' => 'required|image' // Memastikan bahwa file yang diunggah adalah gambar
         ]);
 
-        $file = $request->file('client_file');
-        $path = time() . '_' . $request->type_request . '.' . $file->getClientOriginalExtension();
+        // Menangani file klien
+        $clientFile = $request->file('client_file');
+        $clientFilePath = time() . '_' . $request->type_request . '.' . $clientFile->getClientOriginalExtension();
+        Storage::disk('local')->put('public/'. $clientFilePath, file_get_contents($clientFile));
 
-        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+        // Menangani receipt
+        $receiptFile = $request->file('receipt');
+        $receiptFilePath = 'receipts/' . time() . '_' . $receiptFile->getClientOriginalName();
+        Storage::disk('local')->put('public/'. $receiptFilePath, file_get_contents($receiptFile));
 
-        $user_id = 1;
+        $user_id = Auth::user()->id;
 
-        
-        $order = Order::create([
-            'type_request' => $request->type_request, 
+        // Membuat record baru di database dengan path file yang disimpan
+        Order::create([
+            'type_request' => $request->type_request,
             'client_request' => $request->client_request,
-            'client_file' => $path,
+            'client_file' => $clientFilePath, // Menyimpan path file klien
+            'receipt' => $receiptFilePath, // Menyimpan path receipt
             'service_id' => $request->service_id,
             'user_id' => $user_id
         ]);
 
-        $type_request = $request->type_request;
-        $file_name = $path;
-        $service = Service::findOrFail($request->service_id);
-        $price = $service->price;
-        $order_id = $order->id;
-       return redirect()->route('order.store.pending', compact('type_request', 'file_name', 'price', 'order_id'))->with('success', 'Service baru berhasil disimpan.');
-
+        return redirect()->route('dashboard.index')->with('success', 'Service baru berhasil disimpan.');
     }
 
     /**
