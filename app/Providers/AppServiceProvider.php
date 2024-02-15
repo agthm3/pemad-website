@@ -6,6 +6,7 @@ use App\Repositories\Contracts\ServiceRepositoryInterface;
 use App\Repositories\ServiceRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Interfaces\ServiceInterface;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
     }
 }
