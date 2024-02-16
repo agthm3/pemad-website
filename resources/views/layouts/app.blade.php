@@ -44,7 +44,7 @@
             </div>
             <div class="section-menu">
                 <p class="fs-18 fw-500 mb-2">Admin Dashboard</p>
-                <p class="text-danger">Menu ini nantinya hanya akan muncul untuk Admin</p>
+                {{-- <p class="text-danger">Menu ini nantinya hanya akan muncul untuk Admin</p> --}}
                 <a href="{{ route('dashboard.manageorder') }}" class="item-menu" onclick="handleClickMenu(this)">
                     <svg fill="none">
                         <path
@@ -84,7 +84,7 @@
             </div>
             <div class="section-menu">
                 <p class="fs-18 fw-500 mb-2">My Account </p>
-                <p class="text-danger">Menu ini nantinya hanya akan muncul untuk user/client biasa</p>
+                {{-- <p class="text-danger">Menu ini nantinya hanya akan muncul untuk user/client biasa</p> --}}
                 <a href="{{ route('yourorder.index') }}" class="item-menu" onclick="handleClickMenu(this)">
                     <svg fill="none">
                         <path
